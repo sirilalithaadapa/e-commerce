@@ -1,7 +1,8 @@
 # Site settings
-title: E-Commerce
-description: Sarees Store
-url: "https://sirilalithaadapa.github.io/e-commerce/" 
+title: e-commerce
+description: e-commerce website for sarees
+baseurl: "/e-commerce"
+url: "https://yourusername.github.io"
 
 # Build settings
 markdown: kramdown
