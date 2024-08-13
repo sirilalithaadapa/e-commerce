@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavi Sarees Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Kavi Sarees Store</h1>
+        <div class="cart-icon" onclick="openCartPopup()">
+            <img src="cart-icon.png" alt="Cart">
+            <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <section class="new-collection">
+        <h2>New Collection</h2>
+        <div class="product-grid">
+            <div class="product" onclick="showPopup('product1')">
+                <img src="saree1.jpg" alt="Saree 1">
+                <h3>Saree 1</h3>
+                <p>$50.00</p>
+            </div>
+            <div class="product" onclick="showPopup('product2')">
+                <img src="saree2.jpg" alt="Saree 2">
+                <h3>Saree 2</h3>
+                <p>$60.00</p>
+            </div>
+            <div class="product" onclick="showPopup('product3')">
+                <img src="saree3.jpg" alt="Saree 3">
+                <h3>Saree 3</h3>
+                <p>$55.00</p>
+            </div>
+            <div class="product" onclick="showPopup('product4')">
+                <img src="saree4.jpg" alt="Saree 4">
+                <h3>Saree 4</h3>
+                <p>$75.00</p>
+            </div>
+            <div class="product" onclick="showPopup('product5')">
+                <img src="saree5.jpg" alt="Saree 5">
+                <h3>Saree 5</h3>
+                <p>$58.00</p>
+            </div>
+            <div class="product" onclick="showPopup('product5')">
+                <img src="saree6.jpg" alt="Saree 6">
+                <h3>Saree 6</h3>
+                <p>$88.00</p>
+            </div>
+            <div class="product" onclick="showPopup('product5')">
+                <img src="saree7.jpg" alt="Saree 7">
+                <h3>Saree 7</h3>
+                <p>$70.00</p>
+            </div>
+        </div>
+    </section>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <img id="popup-img" src="" alt="">
+            <h3 id="popup-title"></h3>
+            <p id="popup-price"></p>
+            <p id="popup-description">This is a beautiful saree, perfect for any occasion.</p>
+            <button onclick="addToCart()">Add to Cart</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
