@@ -1,0 +1,24 @@
+# Site settings
+title: e-commerce
+description: e-commerce website for sarees
+baseurl: "/e-commerce"
+url: "https://yourusername.github.io"
+
+# Build settings
+markdown: kramdown
+theme: jekyll-theme-cayman 
+plugins:
+  - jekyll-feed
+
+# GitHub Pages settings
+repository: sirilalithaadapa/e-commerce
+github:
+  is_project_page: true
+
+# Social media settings 
+
+github_username: sirilalithaadapa
+
+# Other settings (Optional)
+show_excerpts: true
+paginate: 5
