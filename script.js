@@ -132,7 +132,7 @@ function showPopup(product) {
         chanderi4: {
             img: 'Images/chanderi/saree4.jpg',
             title: 'Chanderi Saree 4',
-            price: '$1300.00',
+            price: '$1200.00',
             type: 'chanderi'
         },
         chanderi5: {
