@@ -12,53 +12,57 @@
     <header>
         <h1>Kavi Sarees Store</h1>
         <div class="cart-icon" onclick="openCartPopup()">
-            <img src="Images\shopping--cart.svg" alt="Cart">
+            <img src="Images/shopping--cart.svg" alt="Cart">
             <span id="cart-count">0</span>
         </div>
     </header>
 
     <div class="main-container">
         <aside class="filter-section">
-            <h2>Filters</h2>
-            <div class="filter-category">
-                <h3>Fashion Line</h3>
-                <label><input type="checkbox" name="fashion-line" value="casual"> Casual</label><br>
-                <label><input type="checkbox" name="fashion-line" value="formal"> Formal</label>
-            </div>
-            <div class="filter-category">
-                <h3>Collection</h3>
-                <label><input type="checkbox" name="collection" value="new"> New</label><br>
-                <label><input type="checkbox" name="collection" value="sale"> Sale</label>
-            </div>
-            <div class="filter-category">
-                <h3>Gender</h3>
-                <label><input type="checkbox" name="gender" value="women"> Women</label><br>
-                <label><input type="checkbox" name="gender" value="men"> Men</label>
-            </div>
-            <div class="filter-category">
-                <h3>Category</h3>
-                <select name="category">
-                    <option value="saree">Saree</option>
-                    <option value="kurtas">Kurtas</option>
-                    <option value="lehenga">Lehenga</option>
-                </select>
-            </div>
-            <div class="filter-category">
-                <h3>Occasion</h3>
-                <select name="occasion">
-                    <option value="wedding">Wedding</option>
-                    <option value="party">Party</option>
-                    <option value="casual">Casual</option>
-                </select>
-            </div>
-            <div class="filter-category">
-                <h3>Color</h3>
-                <input type="text" placeholder="Search color...">
-            </div>
-            <div class="filter-category">
-                <h3>Price</h3>
-                <input type="range" min="50" max="500" value="50" id="priceRange">
-                <p>Price: $<span id="min-price">50</span> - $<span id="max-price">2000</span></p>
+            <button class="filter-toggle" onclick="toggleFilters()">☰ Filters</button>
+            <div class="filters">
+                <div class="filter-category">
+                    <h3>Fashion Line</h3>
+                    <label><input type="checkbox" name="fashion-line" value="casual"> Casual</label><br>
+                    <label><input type="checkbox" name="fashion-line" value="formal"> Formal</label>
+                </div>
+                <div class="filter-category">
+                    <h3>Collection</h3>
+                    <label><input type="checkbox" name="collection" value="new"> New</label><br>
+                    <label><input type="checkbox" name="collection" value="sale"> Sale</label>
+                </div>
+                <div class="filter-category">
+                    <h3>Gender</h3>
+                    <label><input type="checkbox" name="gender" value="women"> Women</label><br>
+                    <label><input type="checkbox" name="gender" value="men"> Men</label>
+                </div>
+                <div class="filter-category">
+                    <h3>Category</h3>
+                    <select name="category" id="categoryFilter">
+                        <option value="">All</option>
+                        <option value="saree">Saree</option>
+                        <option value="kurta">Kurta</option>
+                        <option value="lehenga">Lehenga</option>
+                    </select>
+                </div>
+                <div class="filter-category">
+                    <h3>Occasion</h3>
+                    <select name="occasion" id="occasionFilter">
+                        <option value="">All</option>
+                        <option value="wedding">Wedding</option>
+                        <option value="party">Party</option>
+                        <option value="casual">Casual</option>
+                    </select>
+                </div>
+                <div class="filter-category">
+                    <h3>Color</h3>
+                    <input type="text" id="colorFilter" placeholder="Search color...">
+                </div>
+                <div class="filter-category">
+                    <h3>Price</h3>
+                    <input type="range" min="50" max="500" value="500" id="priceRange">
+                    <p>Price: $<span id="min-price">50</span> - $<span id="max-price">500</span></p>
+                </div>
             </div>
         </aside>
 
@@ -66,32 +70,32 @@
             <div class="new-collection">
                 <h2>New Collection</h2>
                 <div class="product-grid">
-                    <div class="product" data-type="silk" onclick="showPopup('product1')">
+                    <div class="product" data-type="silk" data-price="50" onclick="showPopup('product1')" id="product1">
                         <img src="saree1.jpg" alt="Saree 1">
                         <h3>Saree 1</h3>
                         <p>$50.00</p>
                     </div>
-                    <div class="product" data-type="cotton" onclick="showPopup('product2')">
+                    <div class="product" data-type="cotton" onclick="showPopup('product2')" id="product2">
                         <img src="saree2.jpg" alt="Saree 2">
                         <h3>Saree 2</h3>
                         <p>$60.00</p>
                     </div>
-                    <div class="product" data-type="georgette" onclick="showPopup('product3')">
+                    <div class="product" data-type="georgette" onclick="showPopup('product3')" id="product3">
                         <img src="saree3.jpg" alt="Saree 3">
                         <h3>Saree 3</h3>
                         <p>$55.00</p>
                     </div>
-                    <div class="product" data-type="silk" onclick="showPopup('product4')">
+                    <div class="product" data-type="silk" onclick="showPopup('product4')" id="product4">
                         <img src="saree4.jpg" alt="Saree 4">
                         <h3>Saree 4</h3>
                         <p>$75.00</p>
                     </div>
-                    <div class="product" data-type="cotton" onclick="showPopup('product5')">
+                    <div class="product" data-type="cotton" onclick="showPopup('product5')" id="product5">
                         <img src="saree5.jpg" alt="Saree 5">
                         <h3>Saree 5</h3>
                         <p>$58.00</p>
                     </div>
-                    <div class="product" data-type="georgette" onclick="showPopup('product6')">
+                    <div class="product" data-type="georgette" onclick="showPopup('product6')" id="product6">
                         <img src="saree6.jpg" alt="Saree 6">
                         <h3>Saree 6</h3>
                         <p>$88.00</p>
@@ -102,27 +106,27 @@
             <section class="banarasi-collection saree-types">
                 <h2>Banarasi Collection</h2>
                 <div class="product-grid">
-                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi1')">
+                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi1')" id="product7">
                         <img src="Images/Banarasi/saree1.jpg" alt="Banarasi Saree 1">
                         <h3>Banarasi Saree 1</h3>
                         <p>$100.00</p>
                     </div>
-                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi2')">
+                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi2')" id="product8">
                         <img src="Images/Banarasi/saree2.jpg" alt="Banarasi Saree 2">
                         <h3>Banarasi Saree 2</h3>
                         <p>$120.00</p>
                     </div>
-                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi3')">
+                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi3')" id="product9">
                         <img src="Images/Banarasi/saree3.jpg" alt="Banarasi Saree 3">
                         <h3>Banarasi Saree 3</h3>
                         <p>$150.00</p>
                     </div>
-                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi4')">
+                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi4')" id="product9">
                         <img src="Images/Banarasi/saree4.jpg" alt="Banarasi Saree 4">
                         <h3>Banarasi Saree 4</h3>
                         <p>$140.00</p>
                     </div>
-                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi5')">
+                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi5')" id="product10">
                         <img src="Images/Banarasi/saree5.jpg" alt="Banarasi Saree 5">
                         <h3>Banarasi Saree 2</h3>
                         <p>$160.00</p>
@@ -208,7 +212,6 @@
             </section>
         </section>
     </div>
-
     <div id="popup" class="popup">
         <div class="popup-content">
             <span class="close" onclick="closePopup()">&times;</span>
@@ -219,6 +222,7 @@
             <button onclick="addToCart()">Add to Cart</button>
         </div>
     </div>
+    <a href="cart.html">View Cart</a>
 
     <script src="script.js"></script>
 </body>

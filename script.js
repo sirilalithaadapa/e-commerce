@@ -132,7 +132,7 @@ function showPopup(product) {
         chanderi4: {
             img: 'Images/chanderi/saree4.jpg',
             title: 'Chanderi Saree 4',
-            price: '$1200.00',
+            price: '$1300.00',
             type: 'chanderi'
         },
         chanderi5: {
@@ -172,28 +172,45 @@ function addToCart() {
     closePopup();
 }
 
-function openCartPopup() {
-    const cartPopup = window.open("", "Cart", "width=400,height=600");
-    cartPopup.document.write('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Your Cart</title><link rel="stylesheet" href="style.css"></head><body>');
-    cartPopup.document.write('<div class="cart-popup"><h3>Your Cart</h3><ul id="cart-items-popup"></ul><button onclick="window.close()">Close Cart</button></div></body></html>');
-    cartPopup.document.close();
-
-    const cartItemsList = cartPopup.document.getElementById('cart-items-popup');
-    cartItemsList.innerHTML = '';
-
-    cartItems.forEach((item, index) => {
-        const li = cartPopup.document.createElement('li');
-        li.innerHTML = `
-            <span>${item.title} - ${item.price}</span>
-            <div class="quantity-controls">
-                <button onclick="window.opener.updateQuantity(${index}, 'decrease')">-</button>
-                <span>${item.quantity}</span>
-                <button onclick="window.opener.updateQuantity(${index}, 'increase')">+</button>
-            </div>
-        `;
-        cartItemsList.appendChild(li);
-    });
+function redirectToCartPage() {
+    const cartPage = document.createElement('a');
+    cartPage.href = 'cart.html';
+    cartPage.click();
 }
+
+function getCartSummary() {
+    const cartSummary = cartItems.map(item => `<li>${item.title} - ${item.price} x ${item.quantity}</li>`).join('');
+    const total = cartItems.reduce((sum, item) => sum + parseFloat(item.price.slice(1)) * item.quantity, 0).toFixed(2);
+    return `
+        <ul>${cartSummary}</ul>
+        <p>Total: $${total}</p>
+        <form id="paymentForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" name="cardNumber" required>
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="text" id="expiryDate" name="expiryDate" required>
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" name="cvv" required>
+            <button type="submit">Pay Now</button>
+        </form>
+    `;
+}
+
+function renderCartPage() {
+    document.body.innerHTML = `
+        <h1>Your Cart</h1>
+        ${getCartSummary()}
+        <button onclick="window.history.back()">Back</button>
+    `;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.location.pathname.includes('cart.html')) {
+        renderCartPage();
+    }
+});
 
 function updateQuantity(index, action) {
     if (action === 'increase') {
@@ -209,25 +226,74 @@ function updateQuantity(index, action) {
     document.getElementById('cart-count').textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
     openCartPopup();
 }
+
 document.getElementById('priceRange').addEventListener('input', function () {
-    let minPrice = this.min;
-    let maxPrice = this.max;
-    let value = this.value;
-    document.getElementById('min-price').textContent = minPrice;
-    document.getElementById('max-price').textContent = value;
+    const minPrice = this.min;
+    const maxPrice = this.value;
+    document.getElementById('max-price').textContent = maxPrice;
 
-    filterProductsByPrice(minPrice, value);
+    filterProductsByPrice(minPrice, maxPrice);
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const filters = {
+        fashionLine: [],
+        collection: [],
+        gender: [],
+        category: '',
+        occasion: '',
+        color: '',
+        price: { min: 50, max: 500 }
+    };
 
-function filterProductsByPrice(min, max) {
-    const products = document.querySelectorAll('.product');
-    products.forEach(product => {
-        const priceText = product.querySelector('p').textContent.replace('$', '');
-        const price = parseFloat(priceText);
-        if (price >= min && price <= max) {
-            product.style.display = 'block';
-        } else {
-            product.style.display = 'none';
-        }
+    // Handle filter changes
+    document.querySelectorAll('input[name="fashion-line"]').forEach(input => {
+        input.addEventListener('change', updateFilters);
     });
-}
+    document.querySelectorAll('input[name="collection"]').forEach(input => {
+        input.addEventListener('change', updateFilters);
+    });
+    document.querySelectorAll('input[name="gender"]').forEach(input => {
+        input.addEventListener('change', updateFilters);
+    });
+    document.getElementById('categoryFilter').addEventListener('change', updateFilters);
+    document.getElementById('occasionFilter').addEventListener('change', updateFilters);
+    document.getElementById('colorFilter').addEventListener('input', updateFilters);
+    document.getElementById('priceRange').addEventListener('input', updateFilters);
+
+    function updateFilters() {
+        filters.fashionLine = Array.from(document.querySelectorAll('input[name="fashion-line"]:checked')).map(input => input.value);
+        filters.collection = Array.from(document.querySelectorAll('input[name="collection"]:checked')).map(input => input.value);
+        filters.gender = Array.from(document.querySelectorAll('input[name="gender"]:checked')).map(input => input.value);
+        filters.category = document.getElementById('categoryFilter').value;
+        filters.occasion = document.getElementById('occasionFilter').value;
+        filters.color = document.getElementById('colorFilter').value.toLowerCase();
+        filters.price.max = document.getElementById('priceRange').value;
+
+        filterProducts();
+    }
+
+    function filterProducts() {
+        const products = document.querySelectorAll('.product');
+        products.forEach(product => {
+            const type = product.getAttribute('data-type');
+            const price = parseFloat(product.querySelector('p').textContent.replace('$', ''));
+            const productCategory = product.classList.contains('product-category');
+            const productOccasion = product.classList.contains('product-occasion');
+            const productColor = product.querySelector('img').alt.toLowerCase();
+
+            const isFashionLineMatch = filters.fashionLine.length === 0 || filters.fashionLine.includes(product.getAttribute('data-type'));
+            const isCollectionMatch = filters.collection.length === 0 || filters.collection.includes(product.getAttribute('data-type'));
+            const isGenderMatch = filters.gender.length === 0 || filters.gender.includes(product.getAttribute('data-type'));
+            const isCategoryMatch = !filters.category || productCategory === filters.category;
+            const isOccasionMatch = !filters.occasion || productOccasion === filters.occasion;
+            const isColorMatch = !filters.color || productColor.includes(filters.color);
+            const isPriceMatch = price >= filters.price.min && price <= filters.price.max;
+
+            if (isFashionLineMatch && isCollectionMatch && isGenderMatch && isCategoryMatch && isOccasionMatch && isColorMatch && isPriceMatch) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+});
