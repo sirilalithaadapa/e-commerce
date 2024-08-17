@@ -4,13 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kavi Sarees Store</title>
+    <title>Kavi Saree Store</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header>
-        <h1>Kavi Sarees Store</h1>
+        <h1>Kavi Saree Store</h1>
+        <nav>
+            <ul>
+                <li><a href="#new-collection">New Collection</a></li>
+                <li><a href="#banarasi-collection">Banarasi Sarees</a></li>
+                <li><a href="#kanchivaram-collection">Kanchivaram Sarees</a></li>
+                <li><a href="#chanderi-collection">Chanderi Sarees</a></li>
+            </ul>
+        </nav>
         <div class="cart-icon" onclick="openCartPopup()">
             <img src="Images/shopping--cart.svg" alt="Cart">
             <span id="cart-count">0</span>
@@ -20,43 +28,18 @@
     <div class="main-container">
         <aside class="filter-section">
             <button class="filter-toggle" onclick="toggleFilters()">☰ Filters</button>
-            <div class="filters">
-                <div class="filter-category">
-                    <h3>Fashion Line</h3>
-                    <label><input type="checkbox" name="fashion-line" value="casual"> Casual</label><br>
-                    <label><input type="checkbox" name="fashion-line" value="formal"> Formal</label>
-                </div>
+            <div class="filters" id="filtersMenu" style="display: none;">
                 <div class="filter-category">
                     <h3>Collection</h3>
                     <label><input type="checkbox" name="collection" value="new"> New</label><br>
                     <label><input type="checkbox" name="collection" value="sale"> Sale</label>
                 </div>
                 <div class="filter-category">
-                    <h3>Gender</h3>
-                    <label><input type="checkbox" name="gender" value="women"> Women</label><br>
-                    <label><input type="checkbox" name="gender" value="men"> Men</label>
-                </div>
-                <div class="filter-category">
-                    <h3>Category</h3>
-                    <select name="category" id="categoryFilter">
-                        <option value="">All</option>
-                        <option value="saree">Saree</option>
-                        <option value="kurta">Kurta</option>
-                        <option value="lehenga">Lehenga</option>
-                    </select>
-                </div>
-                <div class="filter-category">
-                    <h3>Occasion</h3>
-                    <select name="occasion" id="occasionFilter">
-                        <option value="">All</option>
-                        <option value="wedding">Wedding</option>
-                        <option value="party">Party</option>
-                        <option value="casual">Casual</option>
-                    </select>
-                </div>
-                <div class="filter-category">
-                    <h3>Color</h3>
-                    <input type="text" id="colorFilter" placeholder="Search color...">
+                    <h4>Category</h4>
+                    <label><input type="checkbox" value="Couture" onchange="filterSarees()"> Couture</label>
+                    <label><input type="checkbox" value="Banarasi" onchange="filterSarees()"> Banarasi</label>
+                    <label><input type="checkbox" value="Kanchivaram" onchange="filterSarees()"> Kanchivaram</label>
+                    <label><input type="checkbox" value="Chanderi" onchange="filterSarees()"> Chanderi</label>
                 </div>
                 <div class="filter-category">
                     <h3>Price</h3>
@@ -66,151 +49,162 @@
             </div>
         </aside>
 
+
         <section class="product-section">
-            <div class="new-collection">
+            <section class="product-section" id="new-collection">
                 <h2>New Collection</h2>
                 <div class="product-grid">
                     <div class="product" data-type="silk" data-price="50" onclick="showPopup('product1')" id="product1">
-                        <img src="saree1.jpg" alt="Saree 1">
+                        <img src="Images/saree1.jpg" alt="Saree 1">
                         <h3>Saree 1</h3>
-                        <p>$50.00</p>
+                        <p>$150.00</p>
                     </div>
                     <div class="product" data-type="cotton" onclick="showPopup('product2')" id="product2">
-                        <img src="saree2.jpg" alt="Saree 2">
+                        <img src="Images/saree2.jpg" alt="Saree 2">
                         <h3>Saree 2</h3>
-                        <p>$60.00</p>
-                    </div>
-                    <div class="product" data-type="georgette" onclick="showPopup('product3')" id="product3">
-                        <img src="saree3.jpg" alt="Saree 3">
-                        <h3>Saree 3</h3>
-                        <p>$55.00</p>
-                    </div>
-                    <div class="product" data-type="silk" onclick="showPopup('product4')" id="product4">
-                        <img src="saree4.jpg" alt="Saree 4">
-                        <h3>Saree 4</h3>
-                        <p>$75.00</p>
-                    </div>
-                    <div class="product" data-type="cotton" onclick="showPopup('product5')" id="product5">
-                        <img src="saree5.jpg" alt="Saree 5">
-                        <h3>Saree 5</h3>
-                        <p>$58.00</p>
-                    </div>
-                    <div class="product" data-type="georgette" onclick="showPopup('product6')" id="product6">
-                        <img src="saree6.jpg" alt="Saree 6">
-                        <h3>Saree 6</h3>
-                        <p>$88.00</p>
-                    </div>
-                </div>
-            </div>
-
-            <section class="banarasi-collection saree-types">
-                <h2>Banarasi Collection</h2>
-                <div class="product-grid">
-                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi1')" id="product7">
-                        <img src="Images/Banarasi/saree1.jpg" alt="Banarasi Saree 1">
-                        <h3>Banarasi Saree 1</h3>
-                        <p>$100.00</p>
-                    </div>
-                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi2')" id="product8">
-                        <img src="Images/Banarasi/saree2.jpg" alt="Banarasi Saree 2">
-                        <h3>Banarasi Saree 2</h3>
-                        <p>$120.00</p>
-                    </div>
-                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi3')" id="product9">
-                        <img src="Images/Banarasi/saree3.jpg" alt="Banarasi Saree 3">
-                        <h3>Banarasi Saree 3</h3>
-                        <p>$150.00</p>
-                    </div>
-                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi4')" id="product9">
-                        <img src="Images/Banarasi/saree4.jpg" alt="Banarasi Saree 4">
-                        <h3>Banarasi Saree 4</h3>
-                        <p>$140.00</p>
-                    </div>
-                    <div class="product" data-type="banarasi" onclick="showPopup('banarasi5')" id="product10">
-                        <img src="Images/Banarasi/saree5.jpg" alt="Banarasi Saree 5">
-                        <h3>Banarasi Saree 2</h3>
                         <p>$160.00</p>
                     </div>
+                    <div class="product" data-type="georgette" onclick="showPopup('product3')" id="product3">
+                        <img src="Images/saree3.jpg" alt="Saree 3">
+                        <h3>Saree 3</h3>
+                        <p>$165.00</p>
+                    </div>
+                    <div class="product" data-type="silk" onclick="showPopup('product4')" id="product4">
+                        <img src="Images/saree4.jpg" alt="Saree 4">
+                        <h3>Saree 4</h3>
+                        <p>$175.00</p>
+                    </div>
+                    <div class="product" data-type="cotton" onclick="showPopup('product5')" id="product5">
+                        <img src="Images/saree5.jpg" alt="Saree 5">
+                        <h3>Saree 5</h3>
+                        <p>$258.00</p>
+                    </div>
+                    <div class="product" data-type="georgette" onclick="showPopup('product6')" id="product6">
+                        <img src="Images/saree6.jpg" alt="Saree 6">
+                        <h3>Saree 6</h3>
+                        <p>$188.00</p>
+                    </div>
+                    <div class="product" data-type="georgette" onclick="showPopup('product7')" id="product7">
+                        <img src="Images/saree7.jpg" alt="Saree 6">
+                        <h3>Saree 7</h3>
+                        <p>$200.00</p>
+                    </div>
+                    <div class="product" data-type="georgette" onclick="showPopup('product8')" id="product8">
+                        <img src="Images/saree8.jpg" alt="Saree 6">
+                        <h3>Saree 8</h3>
+                        <p>$250.00</p>
+                    </div>
                 </div>
-            </section>
+    </div>
 
-            <section class="kanchivaram-collection saree-types">
-                <h2>Kanchivaram Collection</h2>
-                <div class="product-grid">
-                    <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram1')">
-                        <img src="Images/Kanjivaram/saree1.jpg" alt="Kanchivaram Saree 1">
-                        <h3>Kanchivaram Saree 1</h3>
-                        <p>$150.00</p>
-                    </div>
-                    <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram2')">
-                        <img src="Images/Kanjivaram/saree2.jpg" alt="Kanchivaram Saree 2">
-                        <h3>Kanchivaram Saree 2</h3>
-                        <p>$180.00</p>
-                    </div>
-                    <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram3')">
-                        <img src="Images/Kanjivaram/saree3.jpg" alt="Kanchivaram Saree 3">
-                        <h3>Kanchivaram Saree 3</h3>
-                        <p>$1800.00</p>
-                    </div>
-                    <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram4')">
-                        <img src="Images/Kanjivaram/saree4.jpg" alt="Kanchivaram Saree 4">
-                        <h3>Kanchivaram Saree 4</h3>
-                        <p>$1500.00</p>
-                    </div>
-                    <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram5')">
-                        <img src="Images/Kanjivaram/saree5.jpg" alt="Kanchivaram Saree 5">
-                        <h3>Kanchivaram Saree 5</h3>
-                        <p>$1200.00</p>
-                    </div>
-                    <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram6')">
-                        <img src="Images/Kanjivaram/saree6.jpg" alt="Kanchivaram Saree 6">
-                        <h3>Kanchivaram Saree 6</h3>
-                        <p>$1100.00</p>
-                    </div>
-                    <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram7')">
-                        <img src="Images/Kanjivaram/saree7.jpg" alt="Kanchivaram Saree 7">
-                        <h3>Kanchivaram Saree 7</h3>
-                        <p>$1800.00</p>
-                    </div>
-                </div>
-            </section>
+    <section class="banarasi-collection saree-types" id="banarasi-collection">
+        <h2>Banarasi Collection</h2>
+        <div class="product-grid">
+            <div class="product" data-type="banarasi" onclick="showPopup('banarasi1')" id="product7">
+                <img src="Images/Banarasi/saree1.jpg" alt="Banarasi Saree 1">
+                <h3>Banarasi Saree 1</h3>
+                <p>$100.00</p>
+            </div>
+            <div class="product" data-type="banarasi" onclick="showPopup('banarasi2')" id="product8">
+                <img src="Images/Banarasi/saree2.jpg" alt="Banarasi Saree 2">
+                <h3>Banarasi Saree 2</h3>
+                <p>$120.00</p>
+            </div>
+            <div class="product" data-type="banarasi" onclick="showPopup('banarasi3')" id="product9">
+                <img src="Images/Banarasi/saree3.jpg" alt="Banarasi Saree 3">
+                <h3>Banarasi Saree 3</h3>
+                <p>$150.00</p>
+            </div>
+            <div class="product" data-type="banarasi" onclick="showPopup('banarasi4')" id="product9">
+                <img src="Images/Banarasi/saree4.jpg" alt="Banarasi Saree 4">
+                <h3>Banarasi Saree 4</h3>
+                <p>$140.00</p>
+            </div>
+            <div class="product" data-type="banarasi" onclick="showPopup('banarasi5')" id="product10">
+                <img src="Images/Banarasi/saree5.jpg" alt="Banarasi Saree 5">
+                <h3>Banarasi Saree 2</h3>
+                <p>$160.00</p>
+            </div>
+        </div>
+    </section>
 
-            <section class="chanderi-collection saree-types">
-                <h2>Chanderi Collection</h2>
-                <div class="product-grid">
-                    <div class="product" data-type="chanderi" onclick="showPopup('chanderi1')">
-                        <img src="Images/chanderi/saree1.jpg" alt="Chanderi Saree 1">
-                        <h3>Chanderi Saree 1</h3>
-                        <p>$1300.00</p>
-                    </div>
-                    <div class="product" data-type="chanderi" onclick="showPopup('chanderi2')">
-                        <img src="Images/chanderi/saree2.jpg" alt="Chanderi Saree 2">
-                        <h3>Chanderi Saree 2</h3>
-                        <p>$1500.00</p>
-                    </div>
-                    <div class="product" data-type="chanderi" onclick="showPopup('chanderi3')">
-                        <img src="Images/chanderi/saree3.jpg" alt="Chanderi Saree 3">
-                        <h3>Chanderi Saree 3</h3>
-                        <p>$1400.00</p>
-                    </div>
-                    <div class="product" data-type="chanderi" onclick="showPopup('chanderi4')">
-                        <img src="Images/chanderi/saree4.jpg" alt="Chanderi Saree 4">
-                        <h3>Chanderi Saree 4</h3>
-                        <p>$1300.00</p>
-                    </div>
-                    <div class="product" data-type="chanderi" onclick="showPopup('chanderi5')">
-                        <img src="Images/chanderi/saree5.jpg" alt="Chanderi Saree 5">
-                        <h3>Chanderi Saree 5</h3>
-                        <p>$1400.00</p>
-                    </div>
-                    <div class="product" data-type="chanderi" onclick="showPopup('chanderi6')">
-                        <img src="Images/chanderi/saree6.jpg" alt="Chanderi Saree 6">
-                        <h3>Chanderi Saree 6</h3>
-                        <p>$1800.00</p>
-                    </div>
-                </div>
-            </section>
-        </section>
+    <section class="kanchivaram-collection saree-types" id="kanchivaram-collection">
+        <h2>Kanchivaram Collection</h2>
+        <div class="product-grid">
+            <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram1')">
+                <img src="Images/Kanjivaram/saree1.jpg" alt="Kanchivaram Saree 1">
+                <h3>Kanchivaram Saree 1</h3>
+                <p>$150.00</p>
+            </div>
+            <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram2')">
+                <img src="Images/Kanjivaram/saree2.jpg" alt="Kanchivaram Saree 2">
+                <h3>Kanchivaram Saree 2</h3>
+                <p>$180.00</p>
+            </div>
+            <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram3')">
+                <img src="Images/Kanjivaram/saree3.jpg" alt="Kanchivaram Saree 3">
+                <h3>Kanchivaram Saree 3</h3>
+                <p>$1800.00</p>
+            </div>
+            <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram4')">
+                <img src="Images/Kanjivaram/saree4.jpg" alt="Kanchivaram Saree 4">
+                <h3>Kanchivaram Saree 4</h3>
+                <p>$1500.00</p>
+            </div>
+            <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram5')">
+                <img src="Images/Kanjivaram/saree5.jpg" alt="Kanchivaram Saree 5">
+                <h3>Kanchivaram Saree 5</h3>
+                <p>$1200.00</p>
+            </div>
+            <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram6')">
+                <img src="Images/Kanjivaram/saree6.jpg" alt="Kanchivaram Saree 6">
+                <h3>Kanchivaram Saree 6</h3>
+                <p>$1100.00</p>
+            </div>
+            <div class="product" data-type="kanchivaram" onclick="showPopup('kanchivaram7')">
+                <img src="Images/Kanjivaram/saree7.jpg" alt="Kanchivaram Saree 7">
+                <h3>Kanchivaram Saree 7</h3>
+                <p>$1800.00</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="chanderi-collection saree-types" id="chanderi-collection">
+        <h2>Chanderi Collection</h2>
+        <div class="product-grid">
+            <div class="product" data-type="chanderi" onclick="showPopup('chanderi1')">
+                <img src="Images/chanderi/saree1.jpg" alt="Chanderi Saree 1">
+                <h3>Chanderi Saree 1</h3>
+                <p>$1300.00</p>
+            </div>
+            <div class="product" data-type="chanderi" onclick="showPopup('chanderi2')">
+                <img src="Images/chanderi/saree2.jpg" alt="Chanderi Saree 2">
+                <h3>Chanderi Saree 2</h3>
+                <p>$1500.00</p>
+            </div>
+            <div class="product" data-type="chanderi" onclick="showPopup('chanderi3')">
+                <img src="Images/chanderi/saree3.jpg" alt="Chanderi Saree 3">
+                <h3>Chanderi Saree 3</h3>
+                <p>$1400.00</p>
+            </div>
+            <div class="product" data-type="chanderi" onclick="showPopup('chanderi4')">
+                <img src="Images/chanderi/saree4.jpg" alt="Chanderi Saree 4">
+                <h3>Chanderi Saree 4</h3>
+                <p>$1300.00</p>
+            </div>
+            <div class="product" data-type="chanderi" onclick="showPopup('chanderi5')">
+                <img src="Images/chanderi/saree5.jpg" alt="Chanderi Saree 5">
+                <h3>Chanderi Saree 5</h3>
+                <p>$1400.00</p>
+            </div>
+            <div class="product" data-type="chanderi" onclick="showPopup('chanderi6')">
+                <img src="Images/chanderi/saree6.jpg" alt="Chanderi Saree 6">
+                <h3>Chanderi Saree 6</h3>
+                <p>$1800.00</p>
+            </div>
+        </div>
+    </section>
+    </section>
     </div>
     <div id="popup" class="popup">
         <div class="popup-content">
@@ -222,8 +216,6 @@
             <button onclick="addToCart()">Add to Cart</button>
         </div>
     </div>
-    <a href="cart.html">View Cart</a>
-
     <script src="script.js"></script>
 </body>
 

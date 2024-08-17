@@ -1,8 +1,6 @@
-// Assuming cartItems is an array of objects where each object represents an item in the cart
-// Example cartItems array
 let cartItems = [
-    { title: 'Saree 1', price: '$50.00', quantity: 2 },
-    { title: 'Saree 2', price: '$60.00', quantity: 1 },
+    { title: 'Item 1', price: '$25.00', quantity: 2 },
+    { title: 'Item 2', price: '$15.00', quantity: 1 },
 ];
 
 function updateCartPage() {
