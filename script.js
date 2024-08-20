@@ -59,7 +59,7 @@ function showPopup(product) {
             type: 'banarasi'
         },
         banarasi2: {
-            img: 'Images/Banarasi/saree2.jpg',
+            img: 'Images/Banarasi/saree9.jpg',
             title: 'Banarasi Saree 2',
             price: '$120.00',
             type: 'banarasi'
@@ -80,6 +80,24 @@ function showPopup(product) {
             img: 'Images/Banarasi/saree5.jpg',
             title: 'Banarasi Saree 5',
             price: '$160.00',
+            type: 'banarasi'
+        },
+        banarasi6: {
+            img: 'Images/Banarasi/saree6.jpg',
+            title: 'Banarasi Saree 6',
+            price: '$190.00',
+            type: 'banarasi'
+        },
+        banarasi7: {
+            img: 'Images/Banarasi/saree7.jpg',
+            title: 'Banarasi Saree 7',
+            price: '$240.00',
+            type: 'banarasi'
+        },
+        banarasi8: {
+            img: 'Images/Banarasi/saree8.jpg',
+            title: 'Banarasi Saree 8',
+            price: '$260.00',
             type: 'banarasi'
         },
         kanchivaram1: {
@@ -124,6 +142,12 @@ function showPopup(product) {
             price: '$1800.00',
             type: 'kanchivaram'
         },
+        kanchivaram8: {
+            img: 'Images/Kanjivaram/saree8.jpg',
+            title: 'Kanchivaram Saree 8',
+            price: '$2000.00',
+            type: 'kanchivaram'
+        },
         chanderi1: {
             img: 'Images/chanderi/saree1.jpg',
             title: 'Chanderi Saree 1',
@@ -159,7 +183,20 @@ function showPopup(product) {
             title: 'Chanderi Saree 6',
             price: '$1800.00',
             type: 'chanderi'
-        }
+        },
+        chanderi7: {
+            img: 'Images/chanderi/saree7.jpg',
+            title: 'Chanderi Saree 7',
+            price: '$1900.00',
+            type: 'chanderi'
+        },
+        chanderi8: {
+            img: 'Images/chanderi/saree8.jpg',
+            title: 'Chanderi Saree 8',
+            price: '$2000.00',
+            type: 'chanderi'
+        },
+
     };
 
     currentProduct = products[product];
@@ -177,7 +214,6 @@ function sortProducts() {
     products.sort((a, b) => {
         const priceA = parseFloat(a.querySelector('p').textContent.replace('$', ''));
         const priceB = parseFloat(b.querySelector('p').textContent.replace('$', ''));
-
         return sortOption === 'low-to-high' ? priceA - priceB : priceB - priceA;
     });
 
@@ -185,9 +221,26 @@ function sortProducts() {
     products.forEach(product => productGrid.appendChild(product));
 }
 
-function closePopup() {
-    document.getElementById('popup').style.display = 'none';
+function openPopup() {
+    document.querySelector('.popup').style.display = 'flex';
+    document.body.classList.add('popup-active');
 }
+
+function closePopup() {
+    document.querySelector('.popup').style.display = 'none';
+    document.body.classList.remove('popup-active');
+}
+document.querySelectorAll('.product').forEach(product => {
+    product.addEventListener('click', function () {
+        document.body.classList.add('popup-active');
+        document.querySelector('.popup').style.display = 'flex';
+    });
+});
+
+document.querySelector('.close').addEventListener('click', function () {
+    document.body.classList.remove('popup-active');
+    document.querySelector('.popup').style.display = 'none';
+});
 
 function addToCart() {
     const foundItem = cartItems.find(item => item.title === currentProduct.title);
@@ -206,11 +259,17 @@ function updateCartCount() {
 }
 
 function redirectToCartPage() {
-    window.location.href = 'cart.html';
+    renderCartPage();
 }
 
 function getCartSummary() {
-    const cartSummary = cartItems.map(item => `<li>${item.title} - ${item.price} x ${item.quantity}</li>`).join('');
+    const cartSummary = cartItems.map((item, index) => `
+        <li>
+            ${item.title} - ${item.price} x ${item.quantity}
+            <button onclick="updateQuantity(${index}, 'increase')">+</button>
+            <button onclick="updateQuantity(${index}, 'decrease')">-</button>
+        </li>
+    `).join('');
     const total = cartItems.reduce((sum, item) => sum + parseFloat(item.price.slice(1)) * item.quantity, 0).toFixed(2);
     return `
         <ul>${cartSummary}</ul>
@@ -248,7 +307,7 @@ function updateQuantity(index, action) {
         }
     }
     updateCartCount();
-    renderCartPage(); // Ensure cart page is updated after quantity change
+    renderCartPage();
 }
 
 function filterProductsByPrice(minPrice, maxPrice) {
@@ -263,31 +322,45 @@ function updateFilters() {
     const filters = {
         fashionLine: Array.from(document.querySelectorAll('input[name="fashion-line"]:checked')).map(input => input.value),
         collection: Array.from(document.querySelectorAll('input[name="collection"]:checked')).map(input => input.value),
-        gender: Array.from(document.querySelectorAll('input[name="gender"]:checked')).map(input => input.value),
-        category: document.getElementById('categoryFilter').value,
-        occasion: document.getElementById('occasionFilter').value,
-        color: document.getElementById('colorFilter').value.toLowerCase(),
-        price: { min: 50, max: document.getElementById('priceRange').value }
+        category: Array.from(document.querySelectorAll('input[name="category"]:checked')).map(input => input.value),
+        occasion: document.getElementById('occasionFilter') ? document.getElementById('occasionFilter').value : '',
+        color: document.getElementById('colorFilter') ? document.getElementById('colorFilter').value.toLowerCase() : '',
+        price: {
+            min: parseFloat(document.getElementById('priceRange').min),
+            max: parseFloat(document.getElementById('priceRange').value)
+        }
     };
 
     filterProducts(filters);
+}
+
+function openCartWindow() {
+    const cartWindow = window.open('', '_blank');
+    cartWindow.document.write('<html><head><title>Your Cart</title></head><body>');
+    cartWindow.document.write('<h1>Your Cart Items</h1>');
+    cartWindow.document.write('<ul>');
+    cartItems.forEach(item => {
+        cartWindow.document.write(`<li>${item.title} - ${item.price}</li>`);
+    });
+    cartWindow.document.write('</ul>');
+    cartWindow.document.write('</body></html>');
+    cartWindow.document.close();
 }
 
 function filterProducts(filters) {
     const products = document.querySelectorAll('.product');
     products.forEach(product => {
         const type = product.getAttribute('data-type');
+        const collection = product.getAttribute('data-collection');
+        const category = product.getAttribute('data-category');
         const price = parseFloat(product.querySelector('p').textContent.replace('$', ''));
-        const productCategory = product.classList.contains('product-category');
-        const productOccasion = product.classList.contains('product-occasion');
         const productColor = product.querySelector('img').alt.toLowerCase();
 
         const isMatch = (
             (!filters.fashionLine.length || filters.fashionLine.includes(type)) &&
-            (!filters.collection.length || filters.collection.includes(type)) &&
-            (!filters.gender.length || filters.gender.includes(type)) &&
-            (!filters.category || productCategory === filters.category) &&
-            (!filters.occasion || productOccasion === filters.occasion) &&
+            (!filters.collection.length || filters.collection.includes(collection)) &&
+            (!filters.category.length || filters.category.includes(category)) &&
+            (!filters.occasion || product.classList.contains(filters.occasion)) &&
             (!filters.color || productColor.includes(filters.color)) &&
             (price >= filters.price.min && price <= filters.price.max)
         );
@@ -302,11 +375,9 @@ function toggleFilters() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialize event listeners for filters
     document.querySelectorAll('input[name="fashion-line"]').forEach(input => input.addEventListener('change', updateFilters));
     document.querySelectorAll('input[name="collection"]').forEach(input => input.addEventListener('change', updateFilters));
-    document.querySelectorAll('input[name="gender"]').forEach(input => input.addEventListener('change', updateFilters));
-    document.getElementById('categoryFilter').addEventListener('change', updateFilters);
+    document.querySelectorAll('input[name="category"]').forEach(input => input.addEventListener('change', updateFilters));
     document.getElementById('occasionFilter').addEventListener('change', updateFilters);
     document.getElementById('colorFilter').addEventListener('input', updateFilters);
     document.getElementById('priceRange').addEventListener('input', function () {
@@ -317,4 +388,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.location.pathname.includes('cart.html')) {
         renderCartPage();
     }
+
+    document.getElementById('cart-button').addEventListener('click', redirectToCartPage);
 });
