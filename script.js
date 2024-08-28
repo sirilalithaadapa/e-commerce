@@ -1,393 +1,106 @@
-let cartItems = [];
-let currentProduct = {};
+let shop = document.getElementById("shop");
 
+/**
+ * ! Basket to hold all the selected items
+ * ? the getItem part is retrieving data from the local storage
+ * ? if local storage is blank, basket becomes an empty array
+ */
 
-function showPopup(product) {
-    const products = {
-        product1: {
-            img: 'Images/saree1.jpg',
-            title: 'Saree 1',
-            price: '$150.00',
-            type: 'silk'
-        },
-        product2: {
-            img: 'Images/saree2.jpg',
-            title: 'Saree 2',
-            price: '$160.00',
-            type: 'cotton'
-        },
-        product3: {
-            img: 'Images/saree3.jpg',
-            title: 'Saree 3',
-            price: '$155.00',
-            type: 'georgette'
-        },
-        product4: {
-            img: 'Images/saree4.jpg',
-            title: 'Saree 4',
-            price: '$175.00',
-            type: 'silk'
-        },
-        product5: {
-            img: 'Images/saree5.jpg',
-            title: 'Saree 5',
-            price: '$258.00',
-            type: 'cotton'
-        },
-        product6: {
-            img: 'Images/saree6.jpg',
-            title: 'Saree 6',
-            price: '$188.00',
-            type: 'georgette'
-        },
-        product7: {
-            img: 'Images/saree7.jpg',
-            title: 'Saree 7',
-            price: '$200.00',
-            type: 'georgette'
-        },
-        product8: {
-            img: 'Images/saree8.jpg',
-            title: 'Saree 8',
-            price: '$250.00',
-            type: 'georgette'
-        },
-        banarasi1: {
-            img: 'Images/Banarasi/saree1.jpg',
-            title: 'Banarasi Saree 1',
-            price: '$100.00',
-            type: 'banarasi'
-        },
-        banarasi2: {
-            img: 'Images/Banarasi/saree9.jpg',
-            title: 'Banarasi Saree 2',
-            price: '$120.00',
-            type: 'banarasi'
-        },
-        banarasi3: {
-            img: 'Images/Banarasi/saree3.jpg',
-            title: 'Banarasi Saree 3',
-            price: '$150.00',
-            type: 'banarasi'
-        },
-        banarasi4: {
-            img: 'Images/Banarasi/saree4.jpg',
-            title: 'Banarasi Saree 4',
-            price: '$140.00',
-            type: 'banarasi'
-        },
-        banarasi5: {
-            img: 'Images/Banarasi/saree5.jpg',
-            title: 'Banarasi Saree 5',
-            price: '$160.00',
-            type: 'banarasi'
-        },
-        banarasi6: {
-            img: 'Images/Banarasi/saree6.jpg',
-            title: 'Banarasi Saree 6',
-            price: '$190.00',
-            type: 'banarasi'
-        },
-        banarasi7: {
-            img: 'Images/Banarasi/saree7.jpg',
-            title: 'Banarasi Saree 7',
-            price: '$240.00',
-            type: 'banarasi'
-        },
-        banarasi8: {
-            img: 'Images/Banarasi/saree8.jpg',
-            title: 'Banarasi Saree 8',
-            price: '$260.00',
-            type: 'banarasi'
-        },
-        kanchivaram1: {
-            img: 'Images/Kanjivaram/saree1.jpg',
-            title: 'Kanchivaram Saree 1',
-            price: '$150.00',
-            type: 'kanchivaram'
-        },
-        kanchivaram2: {
-            img: 'Images/Kanjivaram/saree2.jpg',
-            title: 'Kanchivaram Saree 2',
-            price: '$180.00',
-            type: 'kanchivaram'
-        },
-        kanchivaram3: {
-            img: 'Images/Kanjivaram/saree3.jpg',
-            title: 'Kanchivaram Saree 3',
-            price: '$1800.00',
-            type: 'kanchivaram'
-        },
-        kanchivaram4: {
-            img: 'Images/Kanjivaram/saree4.jpg',
-            title: 'Kanchivaram Saree 4',
-            price: '$1500.00',
-            type: 'kanchivaram'
-        },
-        kanchivaram5: {
-            img: 'Images/Kanjivaram/saree5.jpg',
-            title: 'Kanchivaram Saree 5',
-            price: '$1200.00',
-            type: 'kanchivaram'
-        },
-        kanchivaram6: {
-            img: 'Images/Kanjivaram/saree6.jpg',
-            title: 'Kanchivaram Saree 6',
-            price: '$1100.00',
-            type: 'kanchivaram'
-        },
-        kanchivaram7: {
-            img: 'Images/Kanjivaram/saree7.jpg',
-            title: 'Kanchivaram Saree 7',
-            price: '$1800.00',
-            type: 'kanchivaram'
-        },
-        kanchivaram8: {
-            img: 'Images/Kanjivaram/saree8.jpg',
-            title: 'Kanchivaram Saree 8',
-            price: '$2000.00',
-            type: 'kanchivaram'
-        },
-        chanderi1: {
-            img: 'Images/chanderi/saree1.jpg',
-            title: 'Chanderi Saree 1',
-            price: '$1300.00',
-            type: 'chanderi'
-        },
-        chanderi2: {
-            img: 'Images/chanderi/saree2.jpg',
-            title: 'Chanderi Saree 2',
-            price: '$1500.00',
-            type: 'chanderi'
-        },
-        chanderi3: {
-            img: 'Images/chanderi/saree3.jpg',
-            title: 'Chanderi Saree 3',
-            price: '$1400.00',
-            type: 'chanderi'
-        },
-        chanderi4: {
-            img: 'Images/chanderi/saree4.jpg',
-            title: 'Chanderi Saree 4',
-            price: '$1300.00',
-            type: 'chanderi'
-        },
-        chanderi5: {
-            img: 'Images/chanderi/saree5.jpg',
-            title: 'Chanderi Saree 5',
-            price: '$1400.00',
-            type: 'chanderi'
-        },
-        chanderi6: {
-            img: 'Images/chanderi/saree6.jpg',
-            title: 'Chanderi Saree 6',
-            price: '$1800.00',
-            type: 'chanderi'
-        },
-        chanderi7: {
-            img: 'Images/chanderi/saree7.jpg',
-            title: 'Chanderi Saree 7',
-            price: '$1900.00',
-            type: 'chanderi'
-        },
-        chanderi8: {
-            img: 'Images/chanderi/saree8.jpg',
-            title: 'Chanderi Saree 8',
-            price: '$2000.00',
-            type: 'chanderi'
-        },
+let basket = JSON.parse(localStorage.getItem("data")) || [];
 
-    };
+/**
+ * ! Generates the shop with product cards composed of
+ * ! images, title, price, buttons, description
+ */
 
-    currentProduct = products[product];
-    document.getElementById('popup-img').src = currentProduct.img;
-    document.getElementById('popup-title').textContent = currentProduct.title;
-    document.getElementById('popup-price').textContent = currentProduct.price;
-    document.getElementById('popup').style.display = 'flex';
-}
+let generateShop = () => {
+    return (shop.innerHTML = shopItemsData
+        .map((x) => {
+            let { id, name, desc, img, price } = x;
+            let search = basket.find((y) => y.id === id) || [];
+            return `
+    <div id=product-id-${id} class="item">
+      <img width="220" src=${img} alt="">
+      <div class="details">
+        <h3>${name}</h3>
+        <p>${desc}</p>
+        <div class="price-quantity">
+          <h2>$ ${price} </h2>
+          <div class="buttons">
+            <i onclick="decrement(${id})" class="bi bi-dash-lg"></i>
+            <div id=${id} class="quantity">${search.item === undefined ? 0 : search.item
+                }</div>
+            <i onclick="increment(${id})" class="bi bi-plus-lg"></i>
+          </div>
+        </div>
+      </div>
+  </div>
+    `;
+        })
+        .join(""));
+};
 
-function sortProducts() {
-    const sortOption = document.getElementById('sortOptions').value;
-    const productGrid = document.querySelector('.product-grid');
-    const products = Array.from(productGrid.children);
+generateShop();
 
-    products.sort((a, b) => {
-        const priceA = parseFloat(a.querySelector('p').textContent.replace('$', ''));
-        const priceB = parseFloat(b.querySelector('p').textContent.replace('$', ''));
-        return sortOption === 'low-to-high' ? priceA - priceB : priceB - priceA;
-    });
+/**
+ * ! used to increase the selected product item quantity by 1
+ */
 
-    productGrid.innerHTML = '';
-    products.forEach(product => productGrid.appendChild(product));
-}
+let increment = (id) => {
+    let selectedItem = id;
+    let search = basket.find((x) => x.id === selectedItem.id);
 
-function openPopup() {
-    document.querySelector('.popup').style.display = 'flex';
-    document.body.classList.add('popup-active');
-}
-
-function closePopup() {
-    document.querySelector('.popup').style.display = 'none';
-    document.body.classList.remove('popup-active');
-}
-document.querySelectorAll('.product').forEach(product => {
-    product.addEventListener('click', function () {
-        document.body.classList.add('popup-active');
-        document.querySelector('.popup').style.display = 'flex';
-    });
-});
-
-document.querySelector('.close').addEventListener('click', function () {
-    document.body.classList.remove('popup-active');
-    document.querySelector('.popup').style.display = 'none';
-});
-
-function addToCart() {
-    const foundItem = cartItems.find(item => item.title === currentProduct.title);
-    if (foundItem) {
-        foundItem.quantity += 1;
+    if (search === undefined) {
+        basket.push({
+            id: selectedItem.id,
+            item: 1,
+        });
     } else {
-        currentProduct.quantity = 1;
-        cartItems.push(currentProduct);
-    }
-    updateCartCount();
-    closePopup();
-}
-
-function updateCartCount() {
-    document.getElementById('cart-count').textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
-}
-
-function redirectToCartPage() {
-    renderCartPage();
-}
-
-function getCartSummary() {
-    const cartSummary = cartItems.map((item, index) => `
-        <li>
-            ${item.title} - ${item.price} x ${item.quantity}
-            <button onclick="updateQuantity(${index}, 'increase')">+</button>
-            <button onclick="updateQuantity(${index}, 'decrease')">-</button>
-        </li>
-    `).join('');
-    const total = cartItems.reduce((sum, item) => sum + parseFloat(item.price.slice(1)) * item.quantity, 0).toFixed(2);
-    return `
-        <ul>${cartSummary}</ul>
-        <p>Total: $${total}</p>
-        <form id="paymentForm">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="cardNumber">Card Number:</label>
-            <input type="text" id="cardNumber" name="cardNumber" required>
-            <label for="expiryDate">Expiry Date:</label>
-            <input type="text" id="expiryDate" name="expiryDate" required>
-            <label for="cvv">CVV:</label>
-            <input type="text" id="cvv" name="cvv" required>
-            <button type="submit">Pay Now</button>
-        </form>
-    `;
-}
-
-function renderCartPage() {
-    document.body.innerHTML = `
-        <h1>Your Cart</h1>
-        ${getCartSummary()}
-        <button onclick="window.history.back()">Back</button>
-    `;
-}
-
-function updateQuantity(index, action) {
-    if (action === 'increase') {
-        cartItems[index].quantity += 1;
-    } else if (action === 'decrease') {
-        if (cartItems[index].quantity > 1) {
-            cartItems[index].quantity -= 1;
-        } else {
-            cartItems.splice(index, 1);
-        }
-    }
-    updateCartCount();
-    renderCartPage();
-}
-
-function filterProductsByPrice(minPrice, maxPrice) {
-    const products = document.querySelectorAll('.product');
-    products.forEach(product => {
-        const price = parseFloat(product.querySelector('p').textContent.replace('$', ''));
-        product.style.display = (price >= minPrice && price <= maxPrice) ? 'block' : 'none';
-    });
-}
-
-function updateFilters() {
-    const filters = {
-        fashionLine: Array.from(document.querySelectorAll('input[name="fashion-line"]:checked')).map(input => input.value),
-        collection: Array.from(document.querySelectorAll('input[name="collection"]:checked')).map(input => input.value),
-        category: Array.from(document.querySelectorAll('input[name="category"]:checked')).map(input => input.value),
-        occasion: document.getElementById('occasionFilter') ? document.getElementById('occasionFilter').value : '',
-        color: document.getElementById('colorFilter') ? document.getElementById('colorFilter').value.toLowerCase() : '',
-        price: {
-            min: parseFloat(document.getElementById('priceRange').min),
-            max: parseFloat(document.getElementById('priceRange').value)
-        }
-    };
-
-    filterProducts(filters);
-}
-
-function openCartWindow() {
-    const cartWindow = window.open('', '_blank');
-    cartWindow.document.write('<html><head><title>Your Cart</title></head><body>');
-    cartWindow.document.write('<h1>Your Cart Items</h1>');
-    cartWindow.document.write('<ul>');
-    cartItems.forEach(item => {
-        cartWindow.document.write(`<li>${item.title} - ${item.price}</li>`);
-    });
-    cartWindow.document.write('</ul>');
-    cartWindow.document.write('</body></html>');
-    cartWindow.document.close();
-}
-
-function filterProducts(filters) {
-    const products = document.querySelectorAll('.product');
-    products.forEach(product => {
-        const type = product.getAttribute('data-type');
-        const collection = product.getAttribute('data-collection');
-        const category = product.getAttribute('data-category');
-        const price = parseFloat(product.querySelector('p').textContent.replace('$', ''));
-        const productColor = product.querySelector('img').alt.toLowerCase();
-
-        const isMatch = (
-            (!filters.fashionLine.length || filters.fashionLine.includes(type)) &&
-            (!filters.collection.length || filters.collection.includes(collection)) &&
-            (!filters.category.length || filters.category.includes(category)) &&
-            (!filters.occasion || product.classList.contains(filters.occasion)) &&
-            (!filters.color || productColor.includes(filters.color)) &&
-            (price >= filters.price.min && price <= filters.price.max)
-        );
-
-        product.style.display = isMatch ? 'block' : 'none';
-    });
-}
-
-function toggleFilters() {
-    const filtersMenu = document.getElementById('filtersMenu');
-    filtersMenu.style.display = filtersMenu.style.display === 'none' ? 'block' : 'none';
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('input[name="fashion-line"]').forEach(input => input.addEventListener('change', updateFilters));
-    document.querySelectorAll('input[name="collection"]').forEach(input => input.addEventListener('change', updateFilters));
-    document.querySelectorAll('input[name="category"]').forEach(input => input.addEventListener('change', updateFilters));
-    document.getElementById('occasionFilter').addEventListener('change', updateFilters);
-    document.getElementById('colorFilter').addEventListener('input', updateFilters);
-    document.getElementById('priceRange').addEventListener('input', function () {
-        document.getElementById('max-price').textContent = this.value;
-        updateFilters();
-    });
-
-    if (window.location.pathname.includes('cart.html')) {
-        renderCartPage();
+        search.item += 1;
     }
 
-    document.getElementById('cart-button').addEventListener('click', redirectToCartPage);
-});
+    console.log(basket);
+    update(selectedItem.id);
+    localStorage.setItem("data", JSON.stringify(basket));
+};
+
+/**
+ * ! used to decrease the selected product item quantity by 1
+ */
+
+let decrement = (id) => {
+    let selectedItem = id;
+    let search = basket.find((x) => x.id === selectedItem.id);
+
+    if (search === undefined) return;
+    else if (search.item === 0) return;
+    else {
+        search.item -= 1;
+    }
+
+    update(selectedItem.id);
+    basket = basket.filter((x) => x.item !== 0);
+    console.log(basket);
+    localStorage.setItem("data", JSON.stringify(basket));
+};
+
+/**
+ * ! To update the digits of picked items on each item card
+ */
+
+let update = (id) => {
+    let search = basket.find((x) => x.id === id);
+    document.getElementById(id).innerHTML = search.item;
+    calculation();
+};
+
+/**
+ * ! To calculate total amount of selected Items
+ */
+
+let calculation = () => {
+    let cartIcon = document.getElementById("cartAmount");
+    cartIcon.innerHTML = basket.map((x) => x.item).reduce((x, y) => x + y, 0);
+};
+
+calculation();
