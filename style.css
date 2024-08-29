@@ -21,17 +21,19 @@ a {
     color: white;
 }
 
+
 /**
-* ! Navbar STyles are here
+* ! Navbar Styles
 **/
 
 .navbar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     background-color: #8a2f2f;
     color: white;
-    padding: 25px 60px;
+    padding: 15px 20px;
     margin-bottom: 30px;
 }
 
@@ -56,26 +58,104 @@ a {
 }
 
 /**
-* ! Shop items styles are here
+* ! Shop items styles
 **/
-
 .shop {
     display: grid;
-    grid-template-columns: repeat(4, 223px);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 30px;
     justify-content: center;
     margin-bottom: 50px;
+    padding: 0 20px;
+    /* Added padding for better spacing */
+}
+
+.item {
+    border: 2px solid #212529;
+    border-radius: 4px;
+    overflow: hidden;
+    /* Ensure the image fits within the border */
+}
+
+.item img {
+    width: 100%;
+    height: auto;
+    max-width: 250px;
+    /* Adjust this to control the maximum image size */
+    object-fit: cover;
+    /* Ensure the image covers the container without distortion */
+    margin: 0 auto;
+    display: block;
+}
+
+.filters-sort-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.filters {
+    position: relative;
+}
+
+.filter-btn {
+    background-color: #8a2f2f;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.filter-btn:hover {
+    background-color: #6e2626;
+}
+
+.filter-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sort-by {
+    margin-left: 20px;
+}
+
+.sort-by select {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.filters button,
+.sort-by select {
+    font-size: 14px;
+}
+
+.filters button:hover {
+    background-color: #6e2626;
 }
 
 @media (max-width: 1000px) {
     .shop {
-        grid-template-columns: repeat(2, 223px);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 500px) {
     .shop {
-        grid-template-columns: repeat(1, 223px);
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 }
 
@@ -119,7 +199,7 @@ a {
 }
 
 /**
-* ! style rules for label and some buttons
+* ! Style rules for label and buttons
 **/
 
 .text-center {
@@ -153,32 +233,32 @@ a {
 }
 
 /**
-* ! style rules for shopping-cart
+* ! Shopping cart styles
 **/
 
 .shopping-cart {
     display: grid;
-    grid-template-columns: repeat(1, 320px);
+    grid-template-columns: 1fr;
     justify-content: center;
     gap: 15px;
 }
 
 /**
-* ! style rules for cart-item
+* ! Cart item styles
 **/
 
 .cart-item {
     border: 2px solid #212529;
     border-radius: 5px;
     display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .title-price-x {
-    width: 195px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    /* border: 2px solid red; */
+    align-items: center;
 }
 
 .title-price {
@@ -192,4 +272,34 @@ a {
     color: white;
     border-radius: 4px;
     padding: 3px 6px;
+}
+
+/**
+* ! Additional media queries for smaller screens
+**/
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar a,
+    .cart {
+        margin-bottom: 10px;
+    }
+
+    .cart {
+        align-self: flex-end;
+    }
+
+    .details {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
 }

@@ -252,7 +252,7 @@ let shopItemsData = [
         name: "Chanderi Saree 8",
         price: 2000,
         desc: "Gorgeous Chanderi saree with elegant patterns.",
-        img: "Images/chanderi/saree8.jpg",
+        img: "Images/chanderi/saree8.jpeg",
         type: "chanderi"
     }
 ];

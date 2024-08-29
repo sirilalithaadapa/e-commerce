@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <!-- Navbar -->
     <div class="navbar">
         <a href="index.html">
             <h2>Kavi Saree Store</h2>
@@ -22,16 +23,65 @@
                 <div id="cartAmount" class="cartAmount">0</div>
             </div>
         </a>
-
     </div>
 
-    <div class="shop" id="shop">
+    <!-- Filters and Sort By Section -->
+    <div class="filters-sort-section">
+        <!-- Filters -->
+        <div class="filters">
+            <button class="filter-btn" onclick="toggleFilterMenu()">Filters</button>
+            <div id="filterMenu" class="filter-menu" style="display: none;">
+                <h4>Filter By</h4>
+                <label for="sareeType">Saree Type:</label>
+                <select id="sareeType">
+                    <option value="all">All</option>
+                    <option value="banarasi">Banarasi</option>
+                    <option value="kanchivaram">Kanchivaram</option>
+                    <option value="chanderi">Chanderi</option>
+                </select>
 
+                <label for="color">Color:</label>
+                <select id="color">
+                    <option value="all">All</option>
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                    <option value="blue">Blue</option>
+                </select>
 
+                <label for="price">Price Range:</label>
+                <select id="price">
+                    <option value="all">All</option>
+                    <option value="low">Below $100</option>
+                    <option value="medium">$100 - $300</option>
+                    <option value="high">Above $300</option>
+                </select>
+
+                <button onclick="applyFilters()">Apply Filters</button>
+            </div>
+        </div>
+
+        <!-- Sort By -->
+        <div class="sort-by">
+            <label for="sort">Sort By:</label>
+            <select id="sort" onchange="sortProducts()">
+                <option value="popularity">Popularity</option>
+                <option value="priceLowHigh">Price: Low to High</option>
+                <option value="priceHighLow">Price: High to Low</option>
+                <option value="newArrivals">New Arrivals</option>
+            </select>
+        </div>
     </div>
 
+    <!-- Products Section -->
+    <div class="products-section">
+        <div class="products-grid" id="shop">
+            <!-- Dynamic content will be inserted here by script.js -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="Data.js"></script>
+    <script src="script.js"></script>
 </body>
-<script src="Data.js"></script>
-<script src="script.js"></script>
 
 </html>
