@@ -21,20 +21,39 @@ a {
     color: white;
 }
 
-
 /**
-* ! Navbar Styles
-**/
+ * ! Navbar Styles
+ **/
 
 .navbar {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     background-color: #8a2f2f;
     color: white;
     padding: 15px 20px;
     margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    font-weight: 600;
+    padding: 0 15px;
+    display: inline-block;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar li {
+    display: inline;
+}
+
+.navbar a:hover {
+    color: #f4f4f4;
 }
 
 .cart {
